@@ -3,6 +3,5 @@ angular.module('srd.controllers', [])
 
     }])
     .controller('HomeCtrl', ['$scope', function ($scope) {
-        console.log("Hello World");
         $scope.msg = "Hello World";
     }]);

@@ -24,10 +24,10 @@ angular.module('srd', ['ionic', 'srd.controllers'])
 
             .state('app.home', {
                 url: '/home',
-                controller:'HomeCtrl',
                 views: {
                     'content': {
-                        templateUrl: 'views/home.html'
+                        templateUrl: 'views/home.html',
+                        controller:'HomeCtrl'
                     }
                 }
             })
