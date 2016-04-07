@@ -1,0 +1,17 @@
+<ion-view view-title="Simple Search">
+    <ion-content has-bouncing="true">
+        <div class="bar item-input-inset search-box">
+            <label class="item-input-wrapper">
+                <i class="icon ion-ios-search placeholder-icon"></i>
+                <input ng-change="filter(searchKey)" ng-model="searchKey" type="search" placeholder="Search">
+                <i class="ion-android-close placeholder-icon"></i>
+            </label>
+            <button class="button button-clear"></button>
+        </div>
+        <ul class="list" id="search-results">
+            <li class="item" ng-repeat="result in list track by $index">
+                {{result}}
+            </li>
+        </ul>
+    </ion-content>
+</ion-view>

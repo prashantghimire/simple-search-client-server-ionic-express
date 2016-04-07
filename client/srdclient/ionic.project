@@ -1,4 +1,12 @@
 {
   "name": "srdclient",
-  "app_id": ""
+  "app_id": "664c9dfb",
+  "gulpStartupTasks": [
+    "sass",
+    "watch"
+  ],
+  "watchPatterns": [
+    "www/**/*",
+    "!www/lib/**/*"
+  ]
 }
