@@ -31,5 +31,11 @@ angular.module('srd', ['ionic', 'srd.controllers'])
                     }
                 }
             })
-        $urlRouterProvider.otherwise('/app/home');
+            .state('home', {
+                url: '/home',
+                templateUrl: 'views/home.html',
+                controller:'HomeCtrl'
+
+            })
+        $urlRouterProvider.otherwise('/home');
     });
