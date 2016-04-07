@@ -21,7 +21,7 @@ angular.module('srd.controllers', [])
             $scope.list = [];
             searchKey = String(searchKey).toLowerCase();
             if(!searchKey){
-                console.log("No input");
+                //$scope.list.push("No input");
                 return;
             }
             results.forEach(function (item) {
