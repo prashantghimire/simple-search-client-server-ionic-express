@@ -1,4 +1,4 @@
-angular.module('srd.controllers', [])
+angular.module('srd.controllers', ['ion-sticky'])
     .controller('AppCtrl',['$scope', function ($scope) {
 
     }])

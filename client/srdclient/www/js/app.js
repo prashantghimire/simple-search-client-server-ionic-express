@@ -1,4 +1,4 @@
-angular.module('srd', ['ionic', 'srd.controllers'])
+angular.module('srd', ['ionic', 'srd.controllers', 'ion-sticky'])
 
     .run(function($ionicPlatform) {
         $ionicPlatform.ready(function() {
@@ -37,5 +37,5 @@ angular.module('srd', ['ionic', 'srd.controllers'])
                 controller:'HomeCtrl'
 
             })
-        $urlRouterProvider.otherwise('/home');
+        $urlRouterProvider.otherwise('/app/home');
     });
