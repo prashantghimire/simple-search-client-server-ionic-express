@@ -24,6 +24,7 @@ angular.module('srd', ['ionic', 'srd.controllers', 'ion-sticky'])
 
             .state('app.home', {
                 url: '/home',
+                cache: false,
                 views: {
                     'content': {
                         templateUrl: 'views/home.html',
@@ -34,7 +35,8 @@ angular.module('srd', ['ionic', 'srd.controllers', 'ion-sticky'])
             .state('home', {
                 url: '/home',
                 templateUrl: 'views/home.html',
-                controller:'HomeCtrl'
+                controller:'HomeCtrl',
+                cache: false
 
             })
         $urlRouterProvider.otherwise('/app/home');

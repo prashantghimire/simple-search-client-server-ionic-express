@@ -1,5 +1,5 @@
 <ion-view view-title="Simple Search">
-    <ion-content ion-sticky>
+    <ion-content ion-sticky has-bouncing="false">
         <ion-list>
             <div class="bar item-input-inset search-box item-divider">
                 <label class="item-input-wrapper">
@@ -9,8 +9,8 @@
                 </label>
             </div>
             <ul class="list" id="search-results">
-                <li class="item" ng-repeat="result in list track by $index">
-                    {{result}}
+                <li class="item item-text-wrap" ng-repeat="result in list track by $index">
+                    <span>{{result.title}}</span>
                 </li>
             </ul>
         </ion-list>
