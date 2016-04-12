@@ -56,6 +56,8 @@ angular.module('srd.controllers', ['ion-sticky'])
 
     .service('API', ['$http','$q','Constant', function ($http, $q, Constant) {
 
+
+        // http://jsonplaceholder.typicode.com/posts
         var localStorage = window.localStorage;
 
         var update = function () {
@@ -98,5 +100,5 @@ angular.module('srd.controllers', ['ion-sticky'])
     .constant('Constant',
         {
             'local_storage_key':'srddb',
-            'api_url':'http://jsonplaceholder.typicode.com/posts'
+            'api_url':'js/sample.json'
         });
