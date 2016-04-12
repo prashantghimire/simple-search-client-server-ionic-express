@@ -9,7 +9,7 @@ a, a:hover, a:focus{text-decoration: none;}
 
     color: #ffffff;
 }
-.search-box {height: 75px !important; padding-top: 3%; margin-top: -1px}
+.search-box {height: 75px !important; margin-top: -1px}
 .search-box input { height: 40px !important; font-family: 'arial'; font-weight: normal; }
 
 .list{z-index: 10; }
@@ -23,10 +23,5 @@ a, a:hover, a:focus{text-decoration: none;}
     background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed', GradientType=0 );color: #000000;
 }
-
-.srd-icon{
-    position: absolute;
-    top:120px;
-    text-align: center;
-}
-.srd-icon img{ width: 100%;}
+.srd-icon img{ width: 80%; margin-left: 10%; margin-right: 10%;}
+.srd-icon{position: absolute; left: 0; right: 0; margin-left: auto; margin-right: auto; top:120px}
