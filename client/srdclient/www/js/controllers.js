@@ -1,4 +1,6 @@
-
+/**
+ * @author Prashant Ghimire
+ */
 angular.module('srd.controllers', ['ion-sticky'])
 
     .controller('AppCtrl',['$scope','$state','$rootScope','API','Constant', function ($scope, $state, $rootScope, API, Constant) {
@@ -21,19 +23,14 @@ angular.module('srd.controllers', ['ion-sticky'])
 
     .controller('HomeCtrl', ['$scope','$rootScope','API', 'Utils', function ($scope, $rootScope, API, Utils) {
 
-
         $scope.list = [];
-
         API.get().then(function (results) {
 
-            $scope.searchBy = Utils.getDefaultSearchBy(results);
+            $scope.by = Utils.getDefaultSearchBy(results);
 
-            $scope.filter = function (searchKey) {
-
+            $scope.filter = function (searchKey, by) {
                 $scope.list = [];
-
                 searchKey = String(searchKey).toLowerCase();
-
                 if(!searchKey) return;
 
                 if($rootScope.updated) {
@@ -41,9 +38,7 @@ angular.module('srd.controllers', ['ion-sticky'])
                     $rootScope.updated = false;
                 }
                 results.forEach(function (item) {
-
-                    var searchByValue = item[$scope.searchBy].value;
-
+                    var searchByValue = item[by].value || "";
                     if(searchByValue.toLowerCase().indexOf(searchKey) > -1){
                         var view_item = {"value": searchByValue, "key": item.id};
                         $scope.list.push(view_item);
@@ -54,21 +49,40 @@ angular.module('srd.controllers', ['ion-sticky'])
         }, function (err) {
             alert("Sorry! Error occurred while searching.");
         });
+
+
+        $scope.searchFunc = function (value) {
+            if(value) return;
+
+            console.log("now to show box!");
+
+
+
+        }
+
     }])
 
     .service('API', ['$http','$q','Constant', function ($http, $q, Constant) {
 
-
-        // http://jsonplaceholder.typicode.com/posts
         var localStorage = window.localStorage;
 
         var update = function () {
             return $http.get(Constant.api_url);
         };
+
+	    /**
+         * Use when sure that there's local data
+         * @returns {Object}
+         */
         var getLocalData = function () {
             console.log("localstorage access ...");
             return JSON.parse(localStorage.getItem(Constant.local_storage_key));
         };
+
+	    /**
+	     * Use when app is initialized, will only make API call if no local data exists
+         * @returns {*|promise}
+         */
         var get = function () {
 
             var deferred = $q.defer();

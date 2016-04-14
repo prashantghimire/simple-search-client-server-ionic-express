@@ -4,7 +4,7 @@
             <div class="bar item-input-inset search-box item-divider">
                 <label class="item-input-wrapper">
                     <i class="icon ion-ios-search placeholder-icon"></i>
-                    <input ng-change="filter(searchKey)" ng-model="searchKey" type="search" placeholder="Search">
+                    <input ng-change="filter(searchKey, by)" ng-model="searchKey" ng-click="searchFunc(searchKey)" type="search" placeholder="Search by {{by}}">
                     <i class="ion-android-close placeholder-icon"></i>
                 </label>
             </div>
@@ -13,10 +13,20 @@
                     <span>{{item.key}} | {{item.value}}</span>
                 </li>
             </ul>
+        </ion-list>
 
-            <div class="srd-icon">
-                <img src="img/logo.png" alt="Simple Search ...">
-            </div>
+        <div class="srd-icon">
+            <img src="img/logo.png" alt="Simple Search ...">
+        </div>
+
+        <div class="search-options">
+
+        </div>
+
+        <ion-list ng-hide="searchKey">
+            <ion-radio ng-model="by" ng-value="'degrees'">Degrees</ion-radio>
+            <ion-radio ng-model="by" ng-value="'colleges'">Colleges</ion-radio>
+            <ion-radio ng-model="by" ng-value="'building'">building</ion-radio>
         </ion-list>
     </ion-content>
 </ion-view>
