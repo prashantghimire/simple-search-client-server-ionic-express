@@ -17,6 +17,7 @@ angular.module('srd', ['ionic', 'srd.controllers','srd.services','ion-sticky'])
             .state('app', {
                 url: '/app',
                 abstract: true,
+                cache: false,
                 templateUrl: 'views/menu.html',
                 controller: 'AppCtrl'
             })
