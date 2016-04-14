@@ -15,8 +15,17 @@ angular.module('srd.services', [])
          * @returns {Object}
          */
         var getLocalData = function () {
-            console.log("localstorage access ...");
             return JSON.parse(localStorage.getItem(Constant.local_storage_key));
+        };
+
+        var getInfo = function (id) {
+            var data = getLocalData();
+            for(var i = 0 ; i < data.length; i++){
+                var item = data[i];
+                if(item.id == id) {
+                    return item;
+                }
+            }
         };
 
         /**
@@ -48,7 +57,8 @@ angular.module('srd.services', [])
         return {
             get: get,
             update: update,
-            getLocalData: getLocalData
+            getLocalData: getLocalData,
+            getInfo: getInfo
         }
 
     }])
