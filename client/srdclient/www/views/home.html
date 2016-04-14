@@ -19,14 +19,12 @@
             <img src="img/logo.png" alt="Simple Search ...">
         </div>
 
-        <div class="search-options">
-
+        <div class="search-options" ng-hide="searchKey">
+            <select ng-model="by">
+                <option value="degrees">Degrees</option>
+                <option value="colleges">Colleges</option>
+                <option value="building">Building</option>
+            </select>
         </div>
-
-        <ion-list ng-hide="searchKey">
-            <ion-radio ng-model="by" ng-value="'degrees'">Degrees</ion-radio>
-            <ion-radio ng-model="by" ng-value="'colleges'">Colleges</ion-radio>
-            <ion-radio ng-model="by" ng-value="'building'">building</ion-radio>
-        </ion-list>
     </ion-content>
 </ion-view>
