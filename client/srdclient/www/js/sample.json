@@ -36,5 +36,161 @@
             "value":"http://www.southeastern.edu/acad_research/depts/soc_cj/grad_degree/index.html",
             "data_type":"url"
         }
+    },
+
+    {
+        "id":4,
+        "colleges":
+        {
+            "value":"College of Arts, Humanities, and Social Sciences",
+            "data_type":"search_text"
+        },
+        "degrees":
+        {
+            "value":"Biology",
+            "data_type":"search_name"
+        },
+        "building":
+        {
+            "value":"Biology Building",
+            "data_type":"search_text"
+        },
+        "room":
+        {
+            "value":"356D",
+            "data_type":"text"
+        },
+        "phone":
+        {
+            "value":"985-549-2384",
+            "data_type":"phone"
+        },
+        "contact_e-mail":
+        {
+            "value":"biology@southeastern.edu",
+            "data_type":"email"
+        },
+        "link":
+        {
+            "value":"http://www.southeastern.edu/acad_research/depts/soc_cj/grad_degree/index.html",
+            "data_type":"url"
+        }
+    },
+
+    {
+        "id":5,
+        "colleges":
+        {
+            "value":"College of Arts, Humanities, and Social Sciences",
+            "data_type":"search_text"
+        },
+        "degrees":
+        {
+            "value":"Chemistry",
+            "data_type":"search_name"
+        },
+        "building":
+        {
+            "value":"Fayard",
+            "data_type":"search_text"
+        },
+        "room":
+        {
+            "value":"356D",
+            "data_type":"text"
+        },
+        "phone":
+        {
+            "value":"985-549-2384",
+            "data_type":"phone"
+        },
+        "contact_e-mail":
+        {
+            "value":"chem@southeastern.edu",
+            "data_type":"email"
+        },
+        "link":
+        {
+            "value":"http://www.southeastern.edu/acad_research/depts/soc_cj/grad_degree/index.html",
+            "data_type":"url"
+        }
+    },
+
+    {
+        "id":6,
+        "colleges":
+        {
+            "value":"College of Arts, Humanities, and Social Sciences",
+            "data_type":"search_text"
+        },
+        "degrees":
+        {
+            "value":"Physics",
+            "data_type":"search_name"
+        },
+        "building":
+        {
+            "value":"Fayard",
+            "data_type":"search_text"
+        },
+        "room":
+        {
+            "value":"356D",
+            "data_type":"text"
+        },
+        "phone":
+        {
+            "value":"985-549-2384",
+            "data_type":"phone"
+        },
+        "contact_e-mail":
+        {
+            "value":"physics@southeastern.edu",
+            "data_type":"email"
+        },
+        "link":
+        {
+            "value":"http://www.southeastern.edu/acad_research/depts/soc_cj/grad_degree/index.html",
+            "data_type":"url"
+        }
+    },
+
+    {
+        "id":7,
+        "colleges":
+        {
+            "value":"College of Arts, Humanities, and Social Sciences",
+            "data_type":"search_text"
+        },
+        "degrees":
+        {
+            "value":"Computer Science",
+            "data_type":"search_name"
+        },
+        "building":
+        {
+            "value":"Fayard",
+            "data_type":"search_text"
+        },
+        "room":
+        {
+            "value":"356D",
+            "data_type":"text"
+        },
+        "phone":
+        {
+            "value":"985-549-2384",
+            "data_type":"phone"
+        },
+        "contact_e-mail":
+        {
+            "value":"cs@southeastern.edu",
+            "data_type":"email"
+        },
+        "link":
+        {
+            "value":"http://www.southeastern.edu/acad_research/depts/soc_cj/grad_degree/index.html",
+            "data_type":"url"
+        }
     }
 ]
