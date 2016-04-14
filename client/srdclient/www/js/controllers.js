@@ -100,5 +100,5 @@ angular.module('srd.controllers', ['ion-sticky'])
     .constant('Constant',
         {
             'local_storage_key':'srddb',
-            'api_url':'js/sample.json'
+            'api_url':'http://jsonplaceholder.typicode.com/posts'
         });

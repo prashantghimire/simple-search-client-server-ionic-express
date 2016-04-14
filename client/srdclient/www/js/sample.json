@@ -1,23 +1,40 @@
 [
-    {"title":"Gia Kizer"},
-    {"title":"Diego Viger"},
-    {"title":"Camille David"},
-    {"title":"Wilma Avis "},
-    {"title":"Faustino Mcwain "},
-    {"title":"Ying Roddy"},
-    {"title":"Rob Arendt"},
-    {"title":"Tracee Mancino"},
-    {"title":"Lise Luff "},
-    {"title":"Patrina Loveridge"},
-    {"title":"Debrah Rummel"},
-    {"title":"Marcell Buchler"},
-    {"title":"Glynda Hunsucker"},
-    {"title":"Kenneth Gump "},
-    {"title":"Kim Gerken"},
-    {"title":"Ina Arras"},
-    {"title":"Roxane Tomblin"},
-    {"title":"Kellie Lizotte"},
-    {"title":"Yon Croff"},
-    {"title":"Shawn Grider"}
-
+    {
+        "id":3,
+        "colleges":
+        {
+            "value":"College of Arts, Humanities, and Social Sciences",
+            "data_type":"search_text"
+        },
+        "degrees":
+        {
+            "value":"Applied Sciences (MS)",
+            "data_type":"search_name"
+        },
+        "building":
+        {
+            "value":"Fayard",
+            "data_type":"search_text"
+        },
+        "room":
+        {
+            "value":"356D",
+            "data_type":"text"
+        },
+        "phone":
+        {
+            "value":"985-549-2384",
+            "data_type":"phone"
+        },
+        "contact_e-mail":
+        {
+            "value":"jboulahanis@southeastern.edu",
+            "data_type":"email"
+        },
+        "link":
+        {
+            "value":"http://www.southeastern.edu/acad_research/depts/soc_cj/grad_degree/index.html",
+            "data_type":"url"
+        }
+    }
 ]
