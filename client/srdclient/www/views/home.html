@@ -20,11 +20,7 @@
         </div>
 
         <div class="search-options" ng-hide="searchKey">
-            <select ng-model="by">
-                <option value="degrees">Degrees</option>
-                <option value="colleges">Colleges</option>
-                <option value="building">Building</option>
-            </select>
+            <select ng-model="by" ng-options="search for search in searchables"></select>
         </div>
     </ion-content>
 </ion-view>

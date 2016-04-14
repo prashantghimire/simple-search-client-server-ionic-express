@@ -1,4 +1,4 @@
-angular.module('srd', ['ionic', 'srd.controllers', 'ion-sticky'])
+angular.module('srd', ['ionic', 'srd.controllers','srd.services','ion-sticky'])
 
     .run(function($ionicPlatform) {
         $ionicPlatform.ready(function() {
@@ -14,14 +14,12 @@ angular.module('srd', ['ionic', 'srd.controllers', 'ion-sticky'])
 
     .config(function($stateProvider, $urlRouterProvider) {
         $stateProvider
-
             .state('app', {
                 url: '/app',
                 abstract: true,
                 templateUrl: 'views/menu.html',
                 controller: 'AppCtrl'
             })
-
             .state('app.home', {
                 url: '/home',
                 cache: false,
@@ -31,13 +29,6 @@ angular.module('srd', ['ionic', 'srd.controllers', 'ion-sticky'])
                         controller:'HomeCtrl'
                     }
                 }
-            })
-            .state('home', {
-                url: '/home',
-                templateUrl: 'views/home.html',
-                controller:'HomeCtrl',
-                cache: false
-
             })
         $urlRouterProvider.otherwise('/app/home');
     });
