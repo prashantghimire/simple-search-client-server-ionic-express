@@ -48,17 +48,18 @@ angular.module('srd.controllers', [])
             alert("Sorry! Error occurred while searching.");
         });
     }])
-    .controller('InfoCtrl',['$scope', '$stateParams', 'API', function ($scope, $stateParams, API) {
+    .controller('InfoCtrl',['$scope', '$stateParams', 'API','Utils' ,function ($scope, $stateParams, API, Utils) {
         var data = API.getInfo($stateParams.id);
 
         var view_data = [];
         for (var key in data){
             var prop = {"field":key, "value":data[key].value, "data_type": data[key].data_type};
             if(prop.field == "id") continue;
+
+            prop.data_type = Utils.validateDataType(prop.data_type);
+
             view_data.push(prop);
         }
-        console.log(view_data);
-
         $scope.data = view_data;
 
     }]);

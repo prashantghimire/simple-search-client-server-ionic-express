@@ -62,7 +62,22 @@ angular.module('srd.services', [])
         }
 
     }])
-    .service('Utils', [function () {
+    .service('Utils', ['Constant', function (Constant) {
+
+        var validateDataType = function (data_type) {
+
+            var available_type = Constant.data_types;
+            var types = data_type.split("_") || ["text"];
+
+            for(var i = 0; i < types.length; i++){
+                for(var j = 0; j < available_type.length; j++){
+                    if(types[i] == available_type[j]){
+                        return types[i];
+                    }
+                }
+            }
+        };
+
         var getDefaultSearchBy = function (results) {
             var item = results[0];
             for (var key in item) {
@@ -87,7 +102,8 @@ angular.module('srd.services', [])
 
         return {
             getDefaultSearchBy: getDefaultSearchBy,
-            getSearchableFields: getSearchableFields
+            getSearchableFields: getSearchableFields,
+            validateDataType: validateDataType
         };
 
     }])
@@ -98,6 +114,7 @@ angular.module('srd.services', [])
             template: function (elem, attr) {
                 var data_type = attr.datatype;
                 var data_value = attr.datavalue;
+                console.log(attr);
                 switch (data_type) {
                     case "image": {
                         return "<img src='" + data_value + "'/>";
@@ -111,13 +128,24 @@ angular.module('srd.services', [])
                 }
             },
             scope: {
-                datatype: "@datatype"
+                datatype: "@datatype",
+                datavalue:"@datavalue"
             }
         };
     })
     .constant('Constant',
         {
             'local_storage_key': 'srddb',
-            'api_url': 'js/sample.json'
+            'api_url': 'js/sample.json',
+            'data_types': [
+                "image",
+                "url",
+                "video",
+                "audio",
+                "text",
+                "email",
+                "phone",
+                "name"
+            ]
         })
 

@@ -31,3 +31,6 @@ a, a:hover, a:focus{text-decoration: none;}
 .srd-icon{position: absolute; left: 0; right: 0; margin-left: auto; margin-right: auto; top:150px}
 
 .search-options select {margin-left:2.5%; margin-right:2.5%; width: 95%; padding-top: 5px; padding-bottom: 5px; border-radius: 5px 5px;}
+
+.data-row{border-bottom: 1px solid #ddd; padding: 10px; }
+.data-row strong {text-transform: capitalize;}

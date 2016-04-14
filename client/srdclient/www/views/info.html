@@ -1,7 +1,10 @@
 <ion-view view-title="Info">
-    <ion-content>
-        <li ng-repeat="item in data">
-            {{item.field}} --> {{item.value}}
-        </li>
+    <ion-content class="padding">
+        <div class="data-row" ng-repeat="item in data">
+            <strong>{{item.field}}</strong>
+            <br>
+            {{item.value}} | {{item.data_type}}
+            <!--<databox datatype="{{item.data_type}}" datavalue="{{item.value}}"></databox>-->
+        </div>
     </ion-content>
 </ion-view>
