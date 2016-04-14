@@ -38,8 +38,8 @@ angular.module('srd.controllers', [])
                 results.forEach(function (item) {
                     var searchByValue = item[by].value || "";
                     if(searchByValue.toLowerCase().indexOf(searchKey) > -1){
-                        var view_item = {"value": searchByValue, "key": item.id};
-                        $scope.list.push(view_item);
+                        var view_data = {"value": searchByValue, "key": item.id};
+                        $scope.list.push(view_data);
                     }
 
                 });
@@ -51,5 +51,14 @@ angular.module('srd.controllers', [])
     .controller('InfoCtrl',['$scope', '$stateParams', 'API', function ($scope, $stateParams, API) {
         var data = API.getInfo($stateParams.id);
 
-        console.log(data);
+        var view_data = [];
+        for (var key in data){
+            var prop = {"field":key, "value":data[key].value, "data_type": data[key].data_type};
+            if(prop.field == "id") continue;
+            view_data.push(prop);
+        }
+        console.log(view_data);
+
+        $scope.data = view_data;
+
     }]);

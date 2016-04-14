@@ -1,5 +1,7 @@
 <ion-view view-title="Info">
     <ion-content>
-        <p>{{data}}</p>
+        <li ng-repeat="item in data">
+            {{item.field}} --> {{item.value}}
+        </li>
     </ion-content>
 </ion-view>
