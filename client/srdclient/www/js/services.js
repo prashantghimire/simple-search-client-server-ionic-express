@@ -1,8 +1,8 @@
 /**
  * @author Prashant Ghimire
  */
-angular.module('srd.services',[])
-    .service('API', ['$http','$q','Constant', function ($http, $q, Constant) {
+angular.module('srd.services', [])
+    .service('API', ['$http', '$q', 'Constant', function ($http, $q, Constant) {
 
         var localStorage = window.localStorage;
 
@@ -30,11 +30,11 @@ angular.module('srd.services',[])
 
             var exists = (data !== null);
 
-            if(!exists){
+            if (!exists) {
                 $http
                     .get(Constant.api_url)
-                    .then(function(response){
-                        localStorage.setItem(Constant.local_storage_key,JSON.stringify(response.data));
+                    .then(function (response) {
+                        localStorage.setItem(Constant.local_storage_key, JSON.stringify(response.data));
                         deferred.resolve(response.data);
                     }, function (err) {
                         deferred.reject({"error": err});
@@ -52,15 +52,15 @@ angular.module('srd.services',[])
         }
 
     }])
-    .service('Utils',[function () {
+    .service('Utils', [function () {
         var getDefaultSearchBy = function (results) {
-        var item = results[0];
-        for(var key in item){
-            var data_type = item[key].data_type || "";
-            if(data_type.indexOf("name") > -1){
-                return key;
+            var item = results[0];
+            for (var key in item) {
+                var data_type = item[key].data_type || "";
+                if (data_type.indexOf("name") > -1) {
+                    return key;
+                }
             }
-        }
         };
 
         var getSearchableFields = function (results) {
@@ -81,8 +81,33 @@ angular.module('srd.services',[])
         };
 
     }])
+    .directive('databox', function () {
+
+        return {
+            restrict: 'E',
+            template: function (elem, attr) {
+                var data_type = attr.datatype;
+                var data_value = attr.datavalue;
+                switch (data_type) {
+                    case "image": {
+                        return "<img src='" + data_value + "'/>";
+                    }
+                    case "url": {
+                        return "<a target='_blank' href='" + data_value + "'>" + data_value + "</a>";
+                    }
+                    default : {
+                        return "<div>"+data_value+"</div>";
+                    }
+                }
+            },
+            scope: {
+                datatype: "@datatype"
+            }
+        };
+    })
     .constant('Constant',
         {
-            'local_storage_key':'srddb',
-            'api_url':'js/sample.json'
-        });
+            'local_storage_key': 'srddb',
+            'api_url': 'js/sample.json'
+        })
+
