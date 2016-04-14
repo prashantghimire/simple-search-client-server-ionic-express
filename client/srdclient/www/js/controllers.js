@@ -7,7 +7,6 @@ angular.module('srd.controllers', ['ion-sticky'])
         $scope.update = function () {
             API.update()
                 .then(function (response) {
-                    response.data.push({'title':'test updated data'});
                     window.localStorage.setItem(Constant.local_storage_key, JSON.stringify(response.data));
                     $rootScope.updated = true;
                     notify();
@@ -103,7 +102,6 @@ angular.module('srd.controllers', ['ion-sticky'])
     }])
     .service('Utils',[function () {
         var getDefaultSearchBy = function (results) {
-
             for(var i = 0 ; i < results.length; i++){
                 var item = results[i];
                 for(var key in item){
