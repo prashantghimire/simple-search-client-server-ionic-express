@@ -49,17 +49,6 @@ angular.module('srd.controllers', ['ion-sticky'])
         }, function (err) {
             alert("Sorry! Error occurred while searching.");
         });
-
-
-        $scope.searchFunc = function (value) {
-            if(value) return;
-
-            console.log("now to show box!");
-
-
-
-        }
-
     }])
 
     .service('API', ['$http','$q','Constant', function ($http, $q, Constant) {
