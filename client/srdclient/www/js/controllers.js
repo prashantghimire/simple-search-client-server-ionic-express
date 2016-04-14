@@ -48,3 +48,6 @@ angular.module('srd.controllers', [])
             alert("Sorry! Error occurred while searching.");
         });
     }])
+    .controller('InfoCtrl',['$scope', '$stateParams', function ($scope, $stateParams) {
+        $scope.id = $stateParams.id;
+    }]);

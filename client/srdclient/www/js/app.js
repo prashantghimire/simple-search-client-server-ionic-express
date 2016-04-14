@@ -31,5 +31,18 @@ angular.module('srd', ['ionic', 'srd.controllers','srd.services','ion-sticky'])
                     }
                 }
             })
+            .state('app.info',{
+                url:'/info/:id',
+                cache: false,
+                views: {
+                    'content': {
+                        'templateUrl': 'views/info.html',
+                        'controller': 'InfoCtrl'
+                    }
+                },
+                params:{
+                    id:null
+                }
+            })
         $urlRouterProvider.otherwise('/app/home');
     });
