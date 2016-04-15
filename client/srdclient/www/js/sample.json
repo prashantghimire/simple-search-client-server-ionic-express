@@ -3,8 +3,8 @@
         "id":3,
         "colleges":
         {
-            "value":"College of Arts, Humanities, and Social Sciences",
-            "data_type":"search_text"
+            "value":"http://soundbible.com/grab.php?id=1784&type=wav",
+            "data_type":"audio"
         },
         "degrees":
         {
@@ -13,13 +13,13 @@
         },
         "building":
         {
-            "value":"Fayard",
-            "data_type":"search_text"
+            "value":"https://b.thumbs.redditmedia.com/RmYWAIBmamhIEi4Jpz8yK8WAeqJ4Kz32Dx8X-6IGOPQ.png",
+            "data_type":"image"
         },
         "room":
         {
-            "value":"356D",
-            "data_type":"text"
+            "value":"http://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_5mb.mp4",
+            "data_type":"video"
         },
         "phone":
         {

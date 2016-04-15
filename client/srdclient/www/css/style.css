@@ -34,3 +34,9 @@ a, a:hover, a:focus{text-decoration: none;}
 
 .data-row{border-bottom: 1px solid #ddd; padding: 10px; }
 .data-row strong {text-transform: capitalize;}
+
+video{ width: 100%;}
+audio{ width: 100%;}
+strong.name{
+    font-size: 18px;
+}

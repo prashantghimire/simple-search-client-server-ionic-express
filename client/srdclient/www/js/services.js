@@ -107,33 +107,76 @@ angular.module('srd.services', [])
         };
 
     }])
-    .directive('databox', function () {
+    .directive('databox', function() {
 
-        return {
-            restrict: 'E',
-            template: function (elem, attr) {
-                var data_type = attr.datatype;
-                var data_value = attr.datavalue;
-                console.log(attr);
-                switch (data_type) {
-                    case "image": {
-                        return "<img src='" + data_value + "'/>";
+        var directive = {};
+        directive.restrict = 'E';
+        directive.scope = {
+            name: "=datavalue",
+            datatype: "=datatype"
+        }
+
+        directive.compile = function(element, attributes) {
+            var linkFunction = function($scope, element, attributes) {
+                var data_type = $scope.datatype;
+                var data_value = $scope.name;
+
+                var output_html = "";
+
+                switch(data_type){
+                    case "url":
+                    {
+                        output_html = "<a target='_blank' href="+data_value+">"+data_value+"</a>";
+                        break;
                     }
-                    case "url": {
-                        return "<a target='_blank' href='" + data_value + "'>" + data_value + "</a>";
+                    case "image":
+                    {
+                        output_html = "<img src='" + data_value + "' />";
+                        break;
                     }
-                    default : {
-                        return "<div>"+data_value+"</div>";
+                    case "phone":
+                    {
+                        output_html = "<a href='tel:"+data_value+"'>"+data_value+"</a>";
+                        break;
+                    }
+                    case "video":
+                    {
+                        output_html = "<video controls><source src='"+data_value+"' type='video/mp4'></video>";
+                        break;
+                    }
+                    case "audio":
+                    {
+                        output_html = "<audio controls><source src='"+data_value+"' type='video/mp4'></audio>";
+                        break;
+                    }
+                    case "text":
+                    {
+                        output_html = "<p>"+data_value+"</p>";
+                        break;
+                    }
+                    case "email":
+                    {
+                        output_html = "<a href='mailto:"+data_value+"'>"+data_value+"</a>";
+                        break;
+                    }
+                    case "name":
+                    {
+                        output_html = "<strong class='name'>"+data_value+"</strong>";
+                        break;
+                    }
+                    default: {
+                        output_html = "<p>"+data_value+"</p>";
                     }
                 }
-            },
-            scope: {
-                datatype: "@datatype",
-                datavalue:"@datavalue"
-            }
-        };
+                element.html(output_html);
+            };
+            return linkFunction;
+        }
+
+        return directive;
     })
-    .constant('Constant',
+
+.constant('Constant',
         {
             'local_storage_key': 'srddb',
             'api_url': 'js/sample.json',
