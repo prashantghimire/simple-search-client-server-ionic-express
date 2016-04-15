@@ -126,7 +126,12 @@ angular.module('srd.services', [])
                 switch(data_type){
                     case "url":
                     {
-                        output_html = "<a target='_blank' href="+data_value+">"+data_value+"</a>";
+                        output_html = "<span class='data-type-url' ng-click='done()'>"+data_value+"</span>";
+                        element.bind('click', function () {
+                            document.addEventListener('deviceready', function () {
+                                cordova.InAppBrowser.open(data_value,'_blank');
+                            }, false);
+                        });
                         break;
                     }
                     case "image":
@@ -171,8 +176,7 @@ angular.module('srd.services', [])
                 element.html(output_html);
             };
             return linkFunction;
-        }
-
+        };
         return directive;
     })
 

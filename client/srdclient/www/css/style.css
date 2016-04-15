@@ -35,6 +35,10 @@ a, a:hover, a:focus{text-decoration: none;}
 .data-row{border-bottom: 1px solid #ddd; padding: 10px; }
 .data-row strong {text-transform: capitalize;}
 
+.data-type-url{
+    color: #ff0000;
+}
+
 video{ width: 100%;}
 audio{ width: 100%;}
 strong.name{
