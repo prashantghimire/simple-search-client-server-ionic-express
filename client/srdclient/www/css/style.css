@@ -39,8 +39,9 @@ a, a:hover, a:focus{text-decoration: none;}
     color: #ff0000;
 }
 
-video{ width: 100%;}
-audio{ width: 100%;}
+video, audio, iframe{ width: 100%;}
+
 strong.name{
     font-size: 18px;
 }
+

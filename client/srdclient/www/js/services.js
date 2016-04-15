@@ -100,14 +100,29 @@ angular.module('srd.services', [])
             return response;
         };
 
+        var makeVideoLink = function(src){
+            var type = "normal";
+            if(src.indexOf(".") > -1){
+                // normal video
+                if(src.indexOf("//") < 0){
+                    src = "http://"+src;
+                }
+            } else {
+                // youtube video
+                src = "https://www.youtube.com/embed/"+src;
+                type = "youtube";
+            }
+            return {"src":src, "type":type};
+        };
         return {
             getDefaultSearchBy: getDefaultSearchBy,
             getSearchableFields: getSearchableFields,
-            validateDataType: validateDataType
+            validateDataType: validateDataType,
+            makeVideoLink: makeVideoLink
         };
 
     }])
-    .directive('databox', function() {
+    .directive('databox', ['Utils',function(Utils) {
 
         var directive = {};
         directive.restrict = 'E';
@@ -120,13 +135,12 @@ angular.module('srd.services', [])
             var linkFunction = function($scope, element, attributes) {
                 var data_type = $scope.datatype;
                 var data_value = $scope.name;
-
                 var output_html = "";
 
                 switch(data_type){
                     case "url":
                     {
-                        output_html = "<span class='data-type-url' ng-click='done()'>"+data_value+"</span>";
+                        output_html += "<span class='data-type-url' ng-click='done()'>"+data_value+"</span>";
                         element.bind('click', function () {
                             document.addEventListener('deviceready', function () {
                                 cordova.InAppBrowser.open(data_value,'_blank');
@@ -136,41 +150,56 @@ angular.module('srd.services', [])
                     }
                     case "image":
                     {
-                        output_html = "<img src='" + data_value + "' />";
+                        output_html += "<img src='" + data_value + "' />";
                         break;
                     }
                     case "phone":
                     {
-                        output_html = "<a href='tel:"+data_value+"'>"+data_value+"</a>";
+                        output_html += "<a href='tel:"+data_value+"'>"+data_value+"</a>";
                         break;
                     }
                     case "video":
                     {
-                        output_html = "<video controls><source src='"+data_value+"' type='video/mp4'></video>";
+                        var video = Utils.makeVideoLink(data_value);
+                        if(video.type == "normal"){
+                            output_html +=
+                                "<video controls>" +
+                                "<source src='"+data_value+"' type='video/mp4'>" +
+                                "<source src='"+data_value+"' type='video/ogg'>" +
+                                "<source src='"+data_value+"' type='video/webm'>" +
+                                "</video>";
+                        } else if(video.type == "youtube"){
+                            output_html += "<iframe src='"+video.src+"' frameborder='0' allowfullscreen></iframe>";
+                        }
+
                         break;
                     }
                     case "audio":
                     {
-                        output_html = "<audio controls><source src='"+data_value+"' type='video/mp4'></audio>";
+                        output_html +=
+                            "<audio controls>" +
+                            "<source src='"+data_value+"' type='video/mp4'>" +
+                            "</audio>";
+
                         break;
                     }
                     case "text":
                     {
-                        output_html = "<p>"+data_value+"</p>";
+                        output_html += "<p>"+data_value+"</p>";
                         break;
                     }
                     case "email":
                     {
-                        output_html = "<a href='mailto:"+data_value+"'>"+data_value+"</a>";
+                        output_html += "<a href='mailto:"+data_value+"'>"+data_value+"</a>";
                         break;
                     }
                     case "name":
                     {
-                        output_html = "<strong class='name'>"+data_value+"</strong>";
+                        output_html += "<strong class='name'>"+data_value+"</strong>";
                         break;
                     }
                     default: {
-                        output_html = "<p>"+data_value+"</p>";
+                        output_html += "<p>"+data_value+"</p>";
                     }
                 }
                 element.html(output_html);
@@ -178,21 +207,21 @@ angular.module('srd.services', [])
             return linkFunction;
         };
         return directive;
-    })
+    }])
 
-.constant('Constant',
-        {
-            'local_storage_key': 'srddb',
-            'api_url': 'js/sample.json',
-            'data_types': [
-                "image",
-                "url",
-                "video",
-                "audio",
-                "text",
-                "email",
-                "phone",
-                "name"
-            ]
-        })
+    .constant('Constant',
+            {
+                'local_storage_key': 'srddb',
+                'api_url': 'js/sample.json',
+                'data_types': [
+                    "image",
+                    "url",
+                    "video",
+                    "audio",
+                    "text",
+                    "email",
+                    "phone",
+                    "name"
+                ]
+            })
 
