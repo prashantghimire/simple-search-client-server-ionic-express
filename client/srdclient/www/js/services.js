@@ -208,11 +208,10 @@ angular.module('srd.services', [])
         };
         return directive;
     }])
-
     .constant('Constant',
             {
                 'local_storage_key': 'srddb',
-                'api_url': 'js/sample.json',
+                'api_url': 'http://srdapp.com:8000/api/all',
                 'data_types': [
                     "image",
                     "url",
