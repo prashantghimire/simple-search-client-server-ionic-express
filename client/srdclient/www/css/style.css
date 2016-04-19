@@ -37,9 +37,9 @@ a, a:hover, a:focus{text-decoration: none;}
 .data-row{border-bottom: 1px solid #ddd; padding: 10px; }
 .data-row strong {text-transform: capitalize;}
 
-.data-type-url{
-    color: #ff0000;
-}
+.data-type-url{color: #ff0000;}
+.databox img{width: 100%;}
+
 
 video, audio, iframe{ width: 100%;}
 

@@ -88,6 +88,14 @@ angular.module('srd.services', [])
             }
         };
 
+        var validateURL = function (url) {
+            if(url.indexOf("http") > -1){
+                return url;
+            } else {
+                return "http://"+url;
+            }
+        };
+
         var getSearchableFields = function (results) {
             var response = [];
             var item = results[0];
@@ -105,7 +113,7 @@ angular.module('srd.services', [])
             if(src.indexOf(".") > -1){
                 // normal video
                 if(src.indexOf("//") < 0){
-                    src = "http://"+src;
+                    src = validateURL(src);
                 }
             } else {
                 // youtube video
@@ -118,7 +126,8 @@ angular.module('srd.services', [])
             getDefaultSearchBy: getDefaultSearchBy,
             getSearchableFields: getSearchableFields,
             validateDataType: validateDataType,
-            makeVideoLink: makeVideoLink
+            makeVideoLink: makeVideoLink,
+            validateURL: validateURL
         };
 
     }])
@@ -133,9 +142,9 @@ angular.module('srd.services', [])
 
         directive.compile = function(element, attributes) {
             var linkFunction = function($scope, element, attributes) {
-                var data_type = $scope.datatype;
-                var data_value = $scope.name;
-                var output_html = "";
+                var data_type = $scope.datatype.trim();
+                var data_value = $scope.name.trim();
+                var output_html = "<div class='databox'>";
 
                 switch(data_type){
                     case "url":
@@ -150,7 +159,7 @@ angular.module('srd.services', [])
                     }
                     case "image":
                     {
-                        output_html += "<img src='" + data_value + "' />";
+                        output_html += "<img src='" + Utils.validateURL(data_value) + "' />";
                         break;
                     }
                     case "phone":
@@ -178,7 +187,7 @@ angular.module('srd.services', [])
                     {
                         output_html +=
                             "<audio controls>" +
-                            "<source src='"+data_value+"' type='video/mp4'>" +
+                            "<source src='"+Utils.validateURL(data_value)+"' type='video/mp4'>" +
                             "</audio>";
 
                         break;
@@ -202,6 +211,8 @@ angular.module('srd.services', [])
                         output_html += "<p>"+data_value+"</p>";
                     }
                 }
+
+                output_html +="</div>";
                 element.html(output_html);
             };
             return linkFunction;
