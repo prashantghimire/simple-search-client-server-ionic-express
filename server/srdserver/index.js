@@ -1,7 +1,6 @@
 var mysql = require('mysql');
 var express = require('express');
 var app = express();
-var table =  'httg';
 
 var connection = mysql.createConnection({
 	host: 'localhost',
@@ -17,10 +16,23 @@ connection.connect(function(err){
 	console.log('Connected to MySQL.');
 });
 
-app.get('/api/all', function(req, res){
-	var query = "SELECT * FROM "+table;
-	connection.query(query, function(err, rows, fields){
-		if(err) return;
+app.get('/api/:table', function(req, res){
+
+	var table = req.params.table;
+
+	var sql = "SELECT * FROM ??";
+	var inserts = [table];
+	var query = mysql.format(sql, inserts);
+
+	connection.query(query,function(err, rows, fields){
+		if(err){
+			if(err.code === "ER_NO_SUCH_TABLE"){
+				res.send({"error":"No such table."});
+			} else {
+				res.send({"error":"Cannot fetch API data."});
+			}
+			return;
+		}
 		
 		var fields = rows[0];
 		fields[Object.keys(fields)[0]] = "id";
