@@ -32,16 +32,18 @@ angular.module('srd.services', [])
          * Use when app is initialized, will only make API call if no local data exists
          * @returns {*|promise}
          */
-        var get = function (url, reload) {
+        var get = function (params) {
 
-            var link = typeof url !== 'undefined' ? url: Constant.api_url;
+            if(!params) params = {};
+
+            var link = typeof params.url !== 'undefined' ? params.url: Constant.api_url;
 
             var deferred = $q.defer();
             var data = localStorage.getItem(Constant.local_storage_key);
 
             var exists = (data !== null);
 
-            if (!exists || reload) {
+            if (!exists || params.url || params.reload) {
                 $http
                     .get(link)
                     .then(function (response) {

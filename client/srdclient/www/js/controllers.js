@@ -1,7 +1,7 @@
-/**
- * @author Prashant Ghimire
- */
-angular.module('srd.controllers', [])
+    /**
+    * @author Prashant Ghimire
+    */
+    angular.module('srd.controllers', [])
 
     .controller('AppCtrl',[
         '$scope',
@@ -42,38 +42,52 @@ angular.module('srd.controllers', [])
             alert("Data has been updated!");
         }
     }])
-    .controller('HomeCtrl', ['$scope','$rootScope','API', 'Utils', function ($scope, $rootScope, API, Utils) {
+    .controller('HomeCtrl', [
+        '$scope',
+        '$rootScope',
+        'API',
+        'Utils',
+        'Constant',
+        function ($scope, $rootScope, API, Utils, Constant) {
 
         $scope.list = [];
 
-        API.get().then(function (results) {
+        $scope.update = function (params) {
 
-            $scope.results = results;
-            $scope.searchables = Utils.getSearchableFields($scope.results);
-            $scope.by = Utils.getDefaultSearchBy($scope.results);
 
-            $scope.filter = function (searchKey, by) {
-                $scope.list = [];
-                searchKey = String(searchKey).toLowerCase();
-                if(!searchKey) return;
+            API.get(params).then(function (results) {
 
-                if($rootScope.updated) {
-                    $scope.results = API.getLocalData();
-                    $rootScope.updated = false;
-                }
-                $scope.results.forEach(function (item) {
-                    var searchByValue = item[by].value || "";
-                    if(searchByValue.toLowerCase().indexOf(searchKey) > -1){
-                        var view_data = {"value": searchByValue, "key": item.id};
-                        $scope.list.push(view_data);
+                $scope.results = results;
+                $scope.searchables = Utils.getSearchableFields($scope.results);
+                $scope.by = Utils.getDefaultSearchBy($scope.results);
+
+
+                console.log($scope.searchables);
+
+                $scope.filter = function (searchKey, by) {
+                    $scope.list = [];
+                    searchKey = String(searchKey).toLowerCase();
+                    if(!searchKey) return;
+
+                    if($rootScope.updated) {
+                        $scope.results = API.getLocalData();
+                        $rootScope.updated = false;
                     }
+                    $scope.results.forEach(function (item) {
+                        var searchByValue = item[by].value || "";
+                        if(searchByValue.toLowerCase().indexOf(searchKey) > -1){
+                            var view_data = {"value": searchByValue, "key": item.id};
+                            $scope.list.push(view_data);
+                        }
+                    });
+                };
+            }, function (err) {
+                alert("Sorry! Error occurred while searching.");
+            });
+        };
 
-                });
-            };
-        }, function (err) {
-            alert("Sorry! Error occurred while searching.");
-        });
     }])
+
     .controller('InfoCtrl',['$scope', '$stateParams', 'API','Utils' ,function ($scope, $stateParams, API, Utils) {
         var data = API.getInfo($stateParams.id);
 

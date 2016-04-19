@@ -22,12 +22,12 @@
                     Home
                     <i class="ion-android-home"></i>
                 </ion-item>
-                <ion-item menu-close ng-click="update()">
+                <ion-item menu-close ng-click="update({reload: true})">
                     Update
                     <i class="ion-android-download"></i>
                 </ion-item>
 
-                <ion-item menu-close ng-click="scan()">
+                <ion-item menu-close ng-click="update({url:'http://localhost:8000/api/academicmajors'})">
                     Scan
                     <i class="ion-android-camera"></i>
                 </ion-item>

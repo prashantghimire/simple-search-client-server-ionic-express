@@ -19,7 +19,7 @@ angular.module('srd', ['ionic', 'srd.controllers','srd.services','ion-sticky', '
                 abstract: true,
                 cache: false,
                 templateUrl: 'views/menu.html',
-                controller: 'AppCtrl'
+                controller: 'HomeCtrl'
             })
             .state('app.home', {
                 url: '/home',
