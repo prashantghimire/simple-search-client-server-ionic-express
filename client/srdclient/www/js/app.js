@@ -1,4 +1,4 @@
-angular.module('srd', ['ionic', 'srd.controllers','srd.services','ion-sticky'])
+angular.module('srd', ['ionic', 'srd.controllers','srd.services','ion-sticky', 'ngCordova'])
 
     .run(function($ionicPlatform) {
         $ionicPlatform.ready(function() {
@@ -23,7 +23,7 @@ angular.module('srd', ['ionic', 'srd.controllers','srd.services','ion-sticky'])
             })
             .state('app.home', {
                 url: '/home',
-                cache: false,
+                cache: true,
                 views: {
                     'content': {
                         templateUrl: 'views/home.html',

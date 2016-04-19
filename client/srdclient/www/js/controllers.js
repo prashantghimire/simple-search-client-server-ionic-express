@@ -3,7 +3,30 @@
  */
 angular.module('srd.controllers', [])
 
-    .controller('AppCtrl',['$scope','$state','$rootScope','API','Constant', function ($scope, $state, $rootScope, API, Constant) {
+    .controller('AppCtrl',[
+        '$scope',
+        '$state',
+        '$rootScope',
+        '$cordovaBarcodeScanner',
+        '$ionicPlatform',
+        'API',
+        'Constant',
+        function ($scope, $state, $rootScope, $cordovaBarcodeScanner, $ionicPlatform, API, Constant) {
+
+            $scope.scan = function () {
+                $ionicPlatform.ready(function () {
+
+                    $cordovaBarcodeScanner.scan()
+                        .then(function (data) {
+                            var url = data.text;
+                            API.get(url, true).then(function (res) {
+                                $state.go("app.home",{},{reload: true});
+                            });
+                        });
+
+                });
+            }
+
         $scope.update = function () {
             API.update()
                 .then(function (response) {
@@ -20,11 +43,14 @@ angular.module('srd.controllers', [])
         }
     }])
     .controller('HomeCtrl', ['$scope','$rootScope','API', 'Utils', function ($scope, $rootScope, API, Utils) {
+
         $scope.list = [];
+
         API.get().then(function (results) {
 
-            $scope.searchables = Utils.getSearchableFields(results);
-            $scope.by = Utils.getDefaultSearchBy(results);
+            $scope.results = results;
+            $scope.searchables = Utils.getSearchableFields($scope.results);
+            $scope.by = Utils.getDefaultSearchBy($scope.results);
 
             $scope.filter = function (searchKey, by) {
                 $scope.list = [];
@@ -32,10 +58,10 @@ angular.module('srd.controllers', [])
                 if(!searchKey) return;
 
                 if($rootScope.updated) {
-                    results = API.getLocalData();
+                    $scope.results = API.getLocalData();
                     $rootScope.updated = false;
                 }
-                results.forEach(function (item) {
+                $scope.results.forEach(function (item) {
                     var searchByValue = item[by].value || "";
                     if(searchByValue.toLowerCase().indexOf(searchKey) > -1){
                         var view_data = {"value": searchByValue, "key": item.id};
@@ -62,4 +88,4 @@ angular.module('srd.controllers', [])
         }
         $scope.data = view_data;
 
-    }]);
+    }])

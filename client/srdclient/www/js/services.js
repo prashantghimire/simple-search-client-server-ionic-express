@@ -32,18 +32,21 @@ angular.module('srd.services', [])
          * Use when app is initialized, will only make API call if no local data exists
          * @returns {*|promise}
          */
-        var get = function () {
+        var get = function (url, reload) {
+
+            var link = typeof url !== 'undefined' ? url: Constant.api_url;
 
             var deferred = $q.defer();
             var data = localStorage.getItem(Constant.local_storage_key);
 
             var exists = (data !== null);
 
-            if (!exists) {
+            if (!exists || reload) {
                 $http
-                    .get(Constant.api_url)
+                    .get(link)
                     .then(function (response) {
                         localStorage.setItem(Constant.local_storage_key, JSON.stringify(response.data));
+                        console.log("updated !");
                         deferred.resolve(response.data);
                     }, function (err) {
                         deferred.reject({"error": err});
@@ -142,8 +145,8 @@ angular.module('srd.services', [])
 
         directive.compile = function(element, attributes) {
             var linkFunction = function($scope, element, attributes) {
-                var data_type = $scope.datatype.trim();
-                var data_value = $scope.name.trim();
+                var data_type = String($scope.datatype).trim();
+                var data_value = String($scope.name).trim();
                 var output_html = "<div class='databox'>";
 
                 switch(data_type){
@@ -171,6 +174,7 @@ angular.module('srd.services', [])
                     {
                         var video = Utils.makeVideoLink(data_value);
                         if(video.type == "normal"){
+                            data_value = Utils.validateURL(data_value);
                             output_html +=
                                 "<video controls>" +
                                 "<source src='"+data_value+"' type='video/mp4'>" +
@@ -222,7 +226,7 @@ angular.module('srd.services', [])
     .constant('Constant',
             {
                 'local_storage_key': 'srddb',
-                'api_url': 'http://srdapp.com:8000/api/all',
+                'api_url': 'http://192.168.1.6:8000/api/httg',
                 'data_types': [
                     "image",
                     "url",
