@@ -1,4 +1,4 @@
-angular.module('srd', ['ionic', 'srd.controllers','srd.services','ion-sticky', 'ngCordova'])
+angular.module('srd', ['ionic', 'srd.controllers','srd.services','ion-sticky'])
 
     .run(function($ionicPlatform) {
         $ionicPlatform.ready(function() {

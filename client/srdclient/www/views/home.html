@@ -1,12 +1,14 @@
-<ion-view view-title="{{searchables}}" ng-init="update()">
+<ion-view view-title="Search, Retrive, Display" ng-init="update()">
     <ion-content ion-sticky has-bouncing="false">
         <ion-list>
             <div class="bar item-input-inset search-box item-divider">
                 <label class="item-input-wrapper">
                     <i class="icon ion-ios-search placeholder-icon"></i>
                     <input ng-change="filter(searchKey, by)" ng-model="searchKey" type="search" placeholder="Search by {{by}}">
-                    <i class="ion-android-close placeholder-icon"></i>
                 </label>
+                <div id="clear" ng-click="clear()">
+                    <i class="ion-android-close placeholder-icon"></i>
+                </div>
             </div>
             <ul class="list" id="search-results">
                 <li ui-sref="app.info({'id':item.key})" class="item item-text-wrap" ng-repeat="item in list track by $index">

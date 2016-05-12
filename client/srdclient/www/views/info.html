@@ -1,8 +1,7 @@
 <ion-view view-title="Info">
     <ion-content class="padding">
-        <div class="data-row" ng-repeat="item in data">
-            <strong>{{item.field}}</strong><br>
-            <databox datatype="item.data_type" datavalue="item.value"></databox>
+        <div ng-repeat="item in data">
+            <databox datafield="item.field" datatype="item.data_type" datavalue="item.value"></databox>
         </div>
     </ion-content>
 </ion-view>

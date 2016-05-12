@@ -47,3 +47,11 @@ strong.name{
     font-size: 18px;
 }
 
+#clear i {
+    font-size: 2em;
+    color:azure;
+}
+
+strong.heading{
+    text-transform: capitalize;
+}
