@@ -42,7 +42,7 @@
     function ($scope, $rootScope, API, Utils, Constant) {
                 
         $scope.clear = function (){
-            console.log($scope);
+            
         };
         
         $scope.list = [];
@@ -55,9 +55,6 @@
                         $scope.results = results;
                         $scope.searchables = Utils.getSearchableFields($scope.results);
                         $scope.by = Utils.getDefaultSearchBy($scope.results);
-
-
-                        console.log($scope.searchables);
 
                         $scope.filter = function (searchKey, by) {
                             $scope.list = [];

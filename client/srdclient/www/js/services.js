@@ -236,7 +236,7 @@ app.service('API', ['$http', '$q', 'Constant', function ($http, $q, Constant) {
                 };
                 output_html += "</div>";
                 if(data_value){
-                    output_html = "<strong class='heading'>"+data_field+"</strong>"+
+                    output_html = "<div class='heading'>"+data_field+"</div>"+
                         "<div class='data-row'>"+output_html+"</div>";
                     element.html(output_html);
                 }

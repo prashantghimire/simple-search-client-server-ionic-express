@@ -4,12 +4,15 @@ a, a:hover, a:focus{text-decoration: none;}
 .menu-open .menu-content{transform: translate3d(calc(100% - 100px), 0px, 0px) !important;}
 
 .search-box {
+/*
     background: rgb(59,103,158);
-    background: -moz-linear-gradient(top,  rgba(59,103,158,1) 0%, rgba(43,136,217,1) 50%, rgba(32,124,202,1) 51%, rgba(125,185,232,1) 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(top,  rgba(59,103,158,1) 0%,rgba(43,136,217,1) 50%,rgba(32,124,202,1) 51%,rgba(125,185,232,1) 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to bottom,  rgba(59,103,158,1) 0%,rgba(43,136,217,1) 50%,rgba(32,124,202,1) 51%,rgba(125,185,232,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    background: -moz-linear-gradient(top,  rgba(59,103,158,1) 0%, rgba(43,136,217,1) 50%, rgba(32,124,202,1) 51%, rgba(125,185,232,1) 100%);
+    background: -webkit-linear-gradient(top,  rgba(59,103,158,1) 0%,rgba(43,136,217,1) 50%,rgba(32,124,202,1) 51%,rgba(125,185,232,1) 100%); 
+    background: linear-gradient(to bottom,  rgba(59,103,158,1) 0%,rgba(43,136,217,1) 50%,rgba(32,124,202,1) 51%,rgba(125,185,232,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3b679e', endColorstr='#7db9e8',GradientType=0 );
+*/
 
+    background-color: #508000; 
     color: #ffffff;
 }
 .search-box {height: 75px !important; margin-top: -1px}
@@ -47,11 +50,85 @@ strong.name{
     font-size: 18px;
 }
 
+select, select option{
+    text-transform: capitalize;
+    padding-left: 10px;
+}
+
 #clear i {
     font-size: 2em;
     color:azure;
 }
 
-strong.heading{
+div.heading{
     text-transform: capitalize;
+    font-weight: bold;
+    background-color: #f0f0f0;
+    padding: 2px 0px 2px 20px;
+}
+
+
+h1.title{
+    color: #ebe0cf !important;
+}
+ion-header-bar.bar.bar-stable.bar-header {
+    background: url('http://careers.leviton.com/mobile/images/darkbg.jpg');
+}
+
+.title.title-center.header-item{
+    color: #eee !important;
+}
+.bar-stable .button.button-icon{
+    color: #ddd;
+}
+
+
+.dark {
+  background: url('/img/lightbg.jpg') !important;
+  color: #ffffff;
+}
+.dark .scroll-content {
+  background: url('/img/lightbg.jpg') !important;
+}
+.dark .item {
+  background: url('/img/lightbg.jpg');
+  border-top: 1px solid #565656;
+  border-bottom: 1px solid #111;
+  padding: 15px 0px 15px 15px;
+  color: #F0F1F1;
+  max-height: none;
+}
+.dark .item:last-child {
+  border-bottom: 1px solid #565656;
+}
+.dark .item.current {
+  background-color: #262727 !important;
+  border-top: 1px solid #565656 !important;
+  border-bottom: 2px solid #111 !important;
+}
+
+ion-header-bar.bar.bar-dark.bar-header{
+    background: url('/img/darkbg.jpg');
+}
+.dark .item.current p, .dark .item.current h3 {
+  opacity: .7;
+}
+.dark h2,
+.dark h3,
+.dark p,
+.dark a {
+  color: #F0F1F1;
+}
+
+.dark-head {
+  text-decoration: none;
+}
+
+
+button.button.back-button.buttons.button-clear.header-item {
+    color: #ddd;
+}
+
+ion-content.scroll-content.ionic-scroll.has-header {
+    background: #E6E5D7;
 }
