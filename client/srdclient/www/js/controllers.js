@@ -35,7 +35,9 @@
     'Constant',
     '$ionicPlatform',
     '$cordovaBarcodeScanner',
-    function ($scope, $rootScope, API, Utils, Constant, $ionicPlatform, $cordovaBarcodeScanner) {
+    'API',
+    '$state',
+    function ($scope, $rootScope, API, Utils, Constant, $ionicPlatform, $cordovaBarcodeScanner, API, $state) {
                 
         $scope.clear = function (){
             
@@ -79,11 +81,16 @@
 
 
         $scope.scan_code = function () {
+
             $ionicPlatform.ready(function () {
                 $cordovaBarcodeScanner
                   .scan()
                   .then(function(barcodeData) {
-                    alert(JSON.stringify(barcodeData));
+                    var code = barcodeData.text;
+                    API.getOnline(code)
+                    .then(function (res){
+                        location.reload();
+                    });
                   }, function(error) {
                     alert(error);
                   });

@@ -40,7 +40,6 @@ app.service('API', ['$http', '$q', 'Constant', function ($http, $q, Constant) {
             if (!params) params = {};
 
             var link = typeof params.url !== 'undefined' ? params.url : Constant.api_url;
-
             var deferred = $q.defer();
             var data = localStorage.getItem(Constant.local_storage_key);
 
@@ -64,11 +63,26 @@ app.service('API', ['$http', '$q', 'Constant', function ($http, $q, Constant) {
             return deferred.promise;
         };
 
+        var getOnline = function (url){
+            var deferred = $q.defer();
+            $http.get(url)
+            .then(function (response) {
+                localStorage.setItem(Constant.local_storage_key, JSON.stringify(response.data));
+                deferred.resolve(response.data);
+            }, function (err) {
+                deferred.reject({
+                    "error": err
+                });
+            });
+            return deferred.promise;
+        };
+
         return {
             get: get,
             update: update,
             getLocalData: getLocalData,
-            getInfo: getInfo
+            getInfo: getInfo,
+            getOnline: getOnline
         }
 
     }])
