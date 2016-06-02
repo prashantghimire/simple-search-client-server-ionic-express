@@ -84,7 +84,7 @@ ion-header-bar.bar.bar-stable.bar-header {
 
 
 .dark {
-  background: url('/img/lightbg.jpg') !important;
+  background: url('http://careers.leviton.com/mobile/images/lightbg.jpg') !important;
   color: #ffffff;
 }
 .dark .scroll-content {
@@ -108,7 +108,7 @@ ion-header-bar.bar.bar-stable.bar-header {
 }
 
 ion-header-bar.bar.bar-dark.bar-header{
-    background: url('/img/darkbg.jpg');
+    background: url('http://careers.leviton.com/mobile/images/darkbg.jpg');
 }
 .dark .item.current p, .dark .item.current h3 {
   opacity: .7;

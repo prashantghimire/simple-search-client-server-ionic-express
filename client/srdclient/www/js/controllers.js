@@ -78,10 +78,15 @@
         };
 
 
-
         $scope.scan_code = function () {
             $ionicPlatform.ready(function () {
-                console.log("done !");
+                $cordovaBarcodeScanner
+                  .scan()
+                  .then(function(barcodeData) {
+                    alert(JSON.stringify(barcodeData));
+                  }, function(error) {
+                    alert(error);
+                  });
             });
         }
 
