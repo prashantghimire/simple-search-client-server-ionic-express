@@ -10,13 +10,7 @@
     '$ionicPlatform',
     'API',
     'Constant',
-    function ($scope, $state, $rootScope, $ionicPlatform, API, Constant) {
-
-                $scope.scan = function () {
-                    $ionicPlatform.ready(function () {
-
-                    });
-                }
+    function ($scope, $state, $rootScope, $ionicPlatform, $cordovaBarcodeScanner, API, Constant) {
 
                 $scope.update = function () {
                     API.update()
@@ -39,7 +33,9 @@
     'API',
     'Utils',
     'Constant',
-    function ($scope, $rootScope, API, Utils, Constant) {
+    '$ionicPlatform',
+    '$cordovaBarcodeScanner',
+    function ($scope, $rootScope, API, Utils, Constant, $ionicPlatform, $cordovaBarcodeScanner) {
                 
         $scope.clear = function (){
             
@@ -79,7 +75,15 @@
                     }, function (err) {
                         alert("Sorry! Error occurred while searching.");
                     });
-                };
+        };
+
+
+
+        $scope.scan_code = function () {
+            $ionicPlatform.ready(function () {
+                console.log("done !");
+            });
+        }
 
     }])
 
