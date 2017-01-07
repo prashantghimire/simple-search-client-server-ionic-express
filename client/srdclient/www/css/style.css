@@ -7,12 +7,12 @@ a, a:hover, a:focus{text-decoration: none;}
 /*
     background: rgb(59,103,158);
     background: -moz-linear-gradient(top,  rgba(59,103,158,1) 0%, rgba(43,136,217,1) 50%, rgba(32,124,202,1) 51%, rgba(125,185,232,1) 100%);
-    background: -webkit-linear-gradient(top,  rgba(59,103,158,1) 0%,rgba(43,136,217,1) 50%,rgba(32,124,202,1) 51%,rgba(125,185,232,1) 100%); 
+    background: -webkit-linear-gradient(top,  rgba(59,103,158,1) 0%,rgba(43,136,217,1) 50%,rgba(32,124,202,1) 51%,rgba(125,185,232,1) 100%);
     background: linear-gradient(to bottom,  rgba(59,103,158,1) 0%,rgba(43,136,217,1) 50%,rgba(32,124,202,1) 51%,rgba(125,185,232,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3b679e', endColorstr='#7db9e8',GradientType=0 );
 */
 
-    background-color: #508000; 
+    background-color: #508000;
     color: #ffffff;
 }
 .search-box {height: 75px !important; margin-top: -1px}
@@ -53,6 +53,10 @@ strong.name{
 select, select option{
     text-transform: capitalize;
     padding-left: 10px;
+}
+
+select {
+    border: 1px solid #ccc;
 }
 
 #clear i {
