@@ -261,7 +261,7 @@ app.service('API', ['$http', '$q', 'Constant', function ($http, $q, Constant) {
     }])
     .constant('Constant', {
         'local_storage_key': 'srddb',
-        'api_url': 'http://prashantghimire.com:8000/api/agencies',
+        'api_url': 'http://localhost:8000/api/agencies',
         'data_types': [
                     "image",
                     "url",
