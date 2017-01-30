@@ -261,7 +261,7 @@ app.service('API', ['$http', '$q', 'Constant', function ($http, $q, Constant) {
     }])
     .constant('Constant', {
         'local_storage_key': 'srddb',
-        'api_url': 'http://localhost:8000/api/agencies',
+        'api_url': 'http://localhost:8000/api/httg',
         'data_types': [
                     "image",
                     "url",
@@ -272,4 +272,4 @@ app.service('API', ['$http', '$q', 'Constant', function ($http, $q, Constant) {
                     "phone",
                     "name"
                 ]
-    })
+    });
