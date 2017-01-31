@@ -3,184 +3,186 @@
  */
 (function () {
     'use strict';
-}());
 
-var app = angular.module('srd.services', []);
-app.service('API', ['$http', '$q', 'Constant', function ($http, $q, Constant) {
+    angular
+        .module('srd.services', [])
+        .run(function ($window) {
+            $window.localStorage.clear();
+        })
+        .service('API', ['$http', '$q', 'Constant', function ($http, $q, Constant) {
 
-        var localStorage = window.localStorage;
-        var update = function () {
-            return $http.get(Constant.api_url);
-        };
+            var localStorage = window.localStorage;
+            var update = function () {
+                return $http.get(Constant.api_url);
+            };
 
-        /**
-         * Use when sure that there's local data
-         * @returns {Object}
-         */
-        var getLocalData = function () {
-            return JSON.parse(localStorage.getItem(Constant.local_storage_key));
-        };
+            /**
+             * Use when sure that there's local data
+             * @returns {Object}
+             */
+            var getLocalData = function () {
+                return JSON.parse(localStorage.getItem(Constant.local_storage_key));
+            };
 
-        var getInfo = function (id) {
-            var data = getLocalData();
-            for (var i = 0; i < data.length; i++) {
-                var item = data[i];
-                if (item.id == id) {
-                    return item;
+            var getInfo = function (id) {
+                var data = getLocalData();
+                for (var i = 0; i < data.length; i++) {
+                    var item = data[i];
+                    if (item.id == id) {
+                        return item;
+                    }
                 }
-            }
-        };
+            };
 
-        /**
-         * Use when app is initialized, will only make API call if no local data exists
-         * @returns {*|promise}
-         */
-        var get = function (params) {
+            /**
+             * Use when app is initialized, will only make API call if no local data exists
+             * @returns {*|promise}
+             */
+            var get = function (params) {
 
-            if (!params) params = {};
+                if (!params) params = {};
 
-            var link = typeof params.url !== 'undefined' ? params.url : Constant.api_url;
-            var deferred = $q.defer();
-            var data = localStorage.getItem(Constant.local_storage_key);
+                var link = typeof params.url !== 'undefined' ? params.url : Constant.api_url;
+                var deferred = $q.defer();
+                var data = localStorage.getItem(Constant.local_storage_key);
 
-            var exists = (data !== null);
+                var exists = (data !== null);
 
-            if (!exists || params.url || params.reload) {
-                $http
-                    .get(link)
+                if (!exists || params.url || params.reload) {
+                    $http
+                        .get(link)
+                        .then(function (response) {
+                            localStorage.setItem(Constant.local_storage_key, JSON.stringify(response.data));
+                            console.log("updated !");
+                            deferred.resolve(response.data);
+                        }, function (err) {
+                            deferred.reject({
+                                "error": err
+                            });
+                        });
+                } else {
+                    deferred.resolve(JSON.parse(localStorage.getItem(Constant.local_storage_key)));
+                }
+                return deferred.promise;
+            };
+
+            var getOnline = function (url) {
+                var deferred = $q.defer();
+                $http.get(url)
                     .then(function (response) {
                         localStorage.setItem(Constant.local_storage_key, JSON.stringify(response.data));
-                        console.log("updated !");
                         deferred.resolve(response.data);
                     }, function (err) {
                         deferred.reject({
                             "error": err
                         });
                     });
-            } else {
-                deferred.resolve(JSON.parse(localStorage.getItem(Constant.local_storage_key)));
+                return deferred.promise;
+            };
+
+            return {
+                get: get,
+                update: update,
+                getLocalData: getLocalData,
+                getInfo: getInfo,
+                getOnline: getOnline
             }
-            return deferred.promise;
-        };
 
-        var getOnline = function (url){
-            var deferred = $q.defer();
-            $http.get(url)
-            .then(function (response) {
-                localStorage.setItem(Constant.local_storage_key, JSON.stringify(response.data));
-                deferred.resolve(response.data);
-            }, function (err) {
-                deferred.reject({
-                    "error": err
-                });
-            });
-            return deferred.promise;
-        };
+        }])
+        .service('Utils', ['Constant', function (Constant) {
 
-        return {
-            get: get,
-            update: update,
-            getLocalData: getLocalData,
-            getInfo: getInfo,
-            getOnline: getOnline
-        }
+            var validateDataType = function (data_type) {
 
-    }])
-    .service('Utils', ['Constant', function (Constant) {
+                var available_type = Constant.data_types;
+                var types = data_type.split("_") || ["text"];
 
-        var validateDataType = function (data_type) {
-
-            var available_type = Constant.data_types;
-            var types = data_type.split("_") || ["text"];
-
-            for (var i = 0; i < types.length; i++) {
-                for (var j = 0; j < available_type.length; j++) {
-                    if (types[i] == available_type[j]) {
-                        return types[i];
+                for (var i = 0; i < types.length; i++) {
+                    for (var j = 0; j < available_type.length; j++) {
+                        if (types[i] == available_type[j]) {
+                            return types[i];
+                        }
                     }
                 }
-            }
-        };
-
-        var getDefaultSearchBy = function (results) {
-            var item = results[0];
-            for (var key in item) {
-                var data_type = item[key].data_type || "";
-                if (data_type.indexOf("name") > -1) {
-                    return key;
-                }
-            }
-        };
-
-        var validateURL = function (url) {
-            if (url.indexOf("http") > -1) {
-                return url;
-            } else {
-                return "http://" + url;
-            }
-        };
-
-        var getSearchableFields = function (results) {
-            var response = [];
-            var item = results[0];
-            for (var key in item) {
-                var searchable = item[key].data_type || "";
-                if (searchable.indexOf("search") > -1) {
-                    response.push(key);
-                }
-            }
-            return response;
-        };
-
-        var makeVideoLink = function (src) {
-            if(!src){
-                return {type:null};
-            }
-            var type = "normal";
-            if (src.indexOf(".") > -1) {
-                // normal video
-                if (src.indexOf("//") < 0) {
-                    src = validateURL(src);
-                }
-            } else {
-                // youtube video
-                src = "https://www.youtube.com/embed/" + src;
-                type = "youtube";
-            }
-            return {
-                "src": src,
-                "type": type
             };
-        };
-        return {
-            getDefaultSearchBy: getDefaultSearchBy,
-            getSearchableFields: getSearchableFields,
-            validateDataType: validateDataType,
-            makeVideoLink: makeVideoLink,
-            validateURL: validateURL
-        };
 
-    }])
-    .directive('databox', ['Utils', function (Utils) {
+            var getDefaultSearchBy = function (results) {
+                var item = results[0];
+                for (var key in item) {
+                    var data_type = item[key].data_type || "";
+                    if (data_type.indexOf("name") > -1) {
+                        return key;
+                    }
+                }
+            };
 
-        var directive = {};
-        directive.restrict = 'E';
-        directive.scope = {
-            name: "=datavalue",
-            datatype: "=datatype",
-            datafield: "=datafield"
-        }
+            var validateURL = function (url) {
+                if (url.indexOf("http") > -1) {
+                    return url;
+                } else {
+                    return "http://" + url;
+                }
+            };
 
-        directive.compile = function (element, attributes) {
-            var linkFunction = function ($scope, element, attributes) {
-                var data_type = String($scope.datatype).trim();
-                var data_value = String($scope.name).trim();
-                var data_field= String($scope.datafield).trim();
-                var output_html = "";
-                output_html += "<div class='databox'>";
-                switch (data_type) {
-                    case "url":
-                        {
+            var getSearchableFields = function (results) {
+                var response = [];
+                var item = results[0];
+                for (var key in item) {
+                    var searchable = item[key].data_type || "";
+                    if (searchable.indexOf("search") > -1) {
+                        response.push(key);
+                    }
+                }
+                return response;
+            };
+
+            var makeVideoLink = function (src) {
+                if (!src) {
+                    return {type: null};
+                }
+                var type = "normal";
+                if (src.indexOf(".") > -1) {
+                    // normal video
+                    if (src.indexOf("//") < 0) {
+                        src = validateURL(src);
+                    }
+                } else {
+                    // youtube video
+                    src = "https://www.youtube.com/embed/" + src;
+                    type = "youtube";
+                }
+                return {
+                    "src": src,
+                    "type": type
+                };
+            };
+            return {
+                getDefaultSearchBy: getDefaultSearchBy,
+                getSearchableFields: getSearchableFields,
+                validateDataType: validateDataType,
+                makeVideoLink: makeVideoLink,
+                validateURL: validateURL
+            };
+
+        }])
+        .directive('databox', ['Utils', function (Utils) {
+
+            var directive = {};
+            directive.restrict = 'E';
+            directive.scope = {
+                name: "=datavalue",
+                datatype: "=datatype",
+                datafield: "=datafield"
+            }
+
+            directive.compile = function (element, attributes) {
+                var linkFunction = function ($scope, element, attributes) {
+                    var data_type = String($scope.datatype).trim();
+                    var data_value = String($scope.name).trim();
+                    var data_field = String($scope.datafield).trim();
+                    var output_html = "";
+                    output_html += "<div class='databox'>";
+                    switch (data_type) {
+                        case "url": {
                             output_html += "<span class='data-type-url' ng-click='done()'>" + data_value + "</span>";
                             element.bind('click', function () {
                                 document.addEventListener('deviceready', function () {
@@ -189,20 +191,17 @@ app.service('API', ['$http', '$q', 'Constant', function ($http, $q, Constant) {
                             });
                             break;
                         }
-                    case "image":
-                        {
+                        case "image": {
                             output_html += "<img src='" + Utils.validateURL(data_value) + "' />";
                             break;
                         }
-                    case "phone":
-                        {
+                        case "phone": {
                             output_html += "<a href='tel:" + data_value + "'>" + data_value + "</a>";
                             break;
                         }
-                    case "video":
-                        {
+                        case "video": {
                             var video = Utils.makeVideoLink(data_value);
-                            if(!video.type){
+                            if (!video.type) {
                                 output_html += "";
                             }
                             else if (video.type == "normal") {
@@ -219,8 +218,7 @@ app.service('API', ['$http', '$q', 'Constant', function ($http, $q, Constant) {
 
                             break;
                         }
-                    case "audio":
-                        {
+                        case "audio": {
                             output_html +=
                                 "<audio controls>" +
                                 "<source src='" + Utils.validateURL(data_value) + "' type='video/mp4'>" +
@@ -228,48 +226,47 @@ app.service('API', ['$http', '$q', 'Constant', function ($http, $q, Constant) {
 
                             break;
                         }
-                    case "text":
-                        {
+                        case "text": {
                             output_html += "<p>" + data_value + "</p>";
                             break;
                         }
-                    case "email":
-                        {
+                        case "email": {
                             output_html += "<a href='mailto:" + data_value + "'>" + data_value + "</a>";
                             break;
                         }
-                    case "name":
-                        {
+                        case "name": {
                             output_html += "<strong class='name'>" + data_value + "</strong>";
                             break;
                         }
-                    default:
-                        {
+                        default: {
                             output_html += "<p>" + data_value + "</p>";
                         }
+                    }
+                    ;
+                    output_html += "</div>";
+                    if (data_value) {
+                        output_html = "<div class='heading'>" + data_field + "</div>" +
+                            "<div class='data-row'>" + output_html + "</div>";
+                        element.html(output_html);
+                    }
                 };
-                output_html += "</div>";
-                if(data_value){
-                    output_html = "<div class='heading'>"+data_field+"</div>"+
-                        "<div class='data-row'>"+output_html+"</div>";
-                    element.html(output_html);
-                }
+                return linkFunction;
             };
-            return linkFunction;
-        };
-        return directive;
-    }])
-    .constant('Constant', {
-        'local_storage_key': 'srddb',
-        'api_url': 'http://localhost:8000/api/httg',
-        'data_types': [
-                    "image",
-                    "url",
-                    "video",
-                    "audio",
-                    "text",
-                    "email",
-                    "phone",
-                    "name"
-                ]
-    });
+            return directive;
+        }])
+        .constant('Constant', {
+            'local_storage_key': 'srddb',
+            'api_url': 'http://srdapp.com:8000/api/agencies',
+            'data_types': [
+                "image",
+                "url",
+                "video",
+                "audio",
+                "text",
+                "email",
+                "phone",
+                "name"
+            ]
+        });
+
+}());
